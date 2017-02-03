@@ -19,10 +19,18 @@
   This recipe, can be used by underscore's _.filter. It will return only words with
    >=5 characters.
 ===================== */
-var isLengthOfFiveOrMore = function(str) {};
+var isLengthOfFiveOrMore = function(str) {
+    return str.length >= 5;
+};
 
 console.log("isLengthOfFiveOrMore success:",
-  _.isEqual(_.filter(['this', 'is','a', 'test', 'testing'], isLengthOfFiveOrMore), ['testing']));
+  _.isEqual(
+    _.filter(
+      ['this', 'is','a', 'test', 'testing'],isLengthOfFiveOrMore
+    ),
+      ['testing']
+    )
+  );
 
 
 /* =====================
@@ -30,8 +38,11 @@ console.log("isLengthOfFiveOrMore success:",
   function you write along with underscore's _.each to log the double of every
   number in the provided array.
 ===================== */
-var logDouble = function(num) {};
+var logDouble = function(num) {
+  console.log(num * 2);
+};
 var theArray = [1, 5, 20, 100];
+_.each(theArray,logDouble);
 
 
 /* =====================
@@ -126,3 +137,27 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
   maxZoom: 20,
   ext: 'png'
 }).addTo(map);
+
+
+var ParsedData;
+var count = 0;
+var Classification;
+$.ajax(phillyCrimeDataUrl).done(function(ajaxResponseValue) {
+  // a function that does some kind of transformation on the response
+  ParsedData = JSON.parse(ajaxResponseValue);
+  // Logging our computed result (within the body of the ajax function)
+  console.log(ParsedData);
+  var MappingData = function(Objects){
+    L.marker([Objects.Lat,Objects.Lng]).addTo(map);
+    count ++;
+  };
+  _.each(ParsedData,MappingData);
+///What if I want to classify all the data by the crime category, but there are blanks between them.
+  Classification = _.groupBy(ParsedData, 'General Crime Category');
+  console.log(count);
+  console.log(Classification);
+});
+
+//L.marker([39.9522, -75.1639]).addTo(map);
+
+//Objects.Lat,Objects.Lng
