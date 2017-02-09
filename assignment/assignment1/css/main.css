@@ -24,4 +24,46 @@ body {
     bottom: 0;
     overflow-y: auto;
     padding: 20px;
+    background-color: #5bc0de;
+}
+.button {
+    position: absolute;
+    left: 2px;
+    width: 20px;
+    top: 2px;
+    bottom: auto;
+    padding: 20px;
+    float: left;
+}
+.F_Button {
+  position: absolute;
+  width: 120px;
+  left: auto;
+  right: 10px;
+  top:50px;
+  bottom: auto;
+  float: right;
+  background-color: #5cb85c;
+  opacity: 0.8;
+}
+.SideBar_Info {
+  position: relative;
+  width: auto;
+  left: 10px;
+  right: 20px;
+  top: auto;
+  bottom: auto;
+  overflow-y: auto;
+  padding: 20px;
+  background-color: #428bca;
+  grid-gap: 5px;
+  opacity: 0.85;
+  padding: 10px;
+}
+div:not(:last-child) {
+  margin-bottom: : 40px;
+}
+div:not(:first-child):not(:last-child) {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

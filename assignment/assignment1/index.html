@@ -50,18 +50,35 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-
+      <button class = "F_Button">Filter Button</button>
+      <header>
+        <h1>Filter</h1>
+        <h4>By Name:</h4>
+        <input type="text" name="ByName" placeholder="Search By names.."><br>
+        <h4>By Grade:</h4>
+        <select>
+          <option value="First Quarter">First Quarter</option>
+          <option value="Second Quarter">Second Quarter</option>
+          <option value="Third Quarter">Third Quarter</option>
+          <option value="Forth Quarter">Forth Quarter</option>
+        </select>
+        <h1>School List</h1>
+          <div class = "SideBar_Info" id="schools" ></div>
+      </header>
       <!-- =====================
       Add HTML!
       ====================== -->
 
     </div>
     <!-- Map -->
-    <div id="map" class="map"></div>
+    <div id="map" class="map">
+      <div id="ShowSideBar" class="button"></div>
+    </div>
 
     <!-- Javascript Imports -->
     <script src="js/leaflet.js"></script>
     <script src="js/underscore.js"></script>
+    <script src="js/phillySchools.js"></script>
 
     <!-- Javascript Code -->
     <script>
@@ -76,6 +93,25 @@
       	maxZoom: 20,
       	ext: 'png'
       }).addTo(map);
+      console.log(schools);
+      for (i = 0; i < schools.length; i++)
+      {
+      	var node = document.createElement("div");  // Create a <li> node
+        node.setAttribute('class', 'SideBar_Info');
+      	var textnode = document.createTextNode(schools[i].FACILNAME_LABEL); // Create a text node
+        var address = document.createTextNode(schools[i].FACIL_ADDRESS); // Create a text node
+        var GrageLevel  = document.createTextNode(schools[i].GRADE_LEVEL); // Create a text node
+        var Grade_Org = document.createTextNode(schools[i].GRADE_ORG); // Create a text node
+        var Zip = document.createTextNode(schools[i].ZIPCODE); // Create a text node
+        node.appendChild(textnode);
+        node.appendChild(address);
+        node.appendChild(GrageLevel);
+        node.appendChild(Grade_Org);
+        node.appendChild(Zip);
+      	document.getElementById("schools").appendChild(node); ///append Item
+        L.marker([schools[i].Y,schools[i].X]).addTo(map);
+      }
+
     </script>
   </body>
 </html>

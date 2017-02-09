@@ -35,20 +35,37 @@
 // We set this to HTTP to prevent 'CORS' issues
 var downloadCrimeData = $.ajax("http://raw.githubusercontent.com/CPLN692-MUSA611/datasets/master/json/philadelphia-crime-snippet.json");
 var parseData = function(data) {
-    data = JSON.parse(data);
+    var parsedInfo =  JSON.parse(data);
+    return parsedInfo;
 };
 // downloadCrimeData.done(function(data){
 //    parseData(data);
 // });
+
+var filterData = function(data){
+  var filteredData = _.filter(data,function(data){
+    return data.District >10;
+  });
+  console.log(filteredData);
+  return filteredData;
+};
+
+
 var makeMarkers = function(data) {
-  var markers = function(data){
-    return L.marker([data.Lat,data.Lng]);
-  };
-  _.each(data,markers);
+//    return L.marker([data.Lat,data.Lng]);
+  var NewMarkers = [];
+    _.each(data,function(data){
+    NewMarkers.push(L.marker([data.Lat, data.Lng]));
+  //  console.log(NewMarkers);
+  });
+  return NewMarkers;
 };
 
 var plotMarkers = function(markers) {
-  markers.addTo(map);
+//  markers.addTo(map);
+  _.each(markers,function(markers){
+    markers.addTo(map);
+  });
 };
 
 
@@ -66,7 +83,10 @@ var plotMarkers = function(markers) {
 ===================== */
 
 var removeMarkers = function(markers) {
-  map.removeLayer(markers);
+//  map.removeLayer(markers);
+  _.each(markers,function(markers){
+    map.removeLayer(markers);
+  });
 };
 
 /* =====================
@@ -99,7 +119,12 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 
 downloadCrimeData.done(function(data) {
   var parsed = parseData(data);
-  var markers = makeMarkers(parsed);
+//  console.log(parsed);
+  var F_Data = filterData(parsed);
+  console.log(F_Data);
+  var markers = makeMarkers(F_Data);
+//  console.log("markers");
+//  console.log(markers);
   plotMarkers(markers);
-  removeMarkers(markers);
+//  removeMarkers(markers);
 });
