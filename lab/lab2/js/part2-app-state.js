@@ -126,5 +126,5 @@ downloadCrimeData.done(function(data) {
 //  console.log("markers");
 //  console.log(markers);
   plotMarkers(markers);
-//  removeMarkers(markers);
+  removeMarkers(markers);
 });
