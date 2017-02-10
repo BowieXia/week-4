@@ -26,10 +26,33 @@
 /* =====================
   Define a resetMap function to remove markers from the map and clear the array of markers
 ===================== */
-var resetMap = function() {
+var downloadCrimeData = "http://raw.githubusercontent.com/CPLN692-MUSA611/datasets/master/json/philadelphia-crime-snippet.json";
+var ParsedData = [];
+var count = 0;
+var NewMarkers = [];
+
+var resetMap = function(ParsedData) {
   /* =====================
     Fill out this function definition
   ===================== */
+  _.each(myMarkers, function(marker) { map.removeLayer(marker); });
+  myMarkers = [];
+  //console.log(numericField1);numericField2,booleanField,stringField
+  var filteredData = _.filter(ParsedData,function(ParsedData){
+      console.log(typeof(ParsedData.District));
+      return ((ParsedData.District > numericField1) && (ParsedData.District < numericField2));
+  });
+  console.log("reset map");
+  console.log(filteredData);
+  var makeMarkers = function(ParsedData) {
+  //    return L.marker([data.Lat,data.Lng]);
+      _.each(ParsedData,function(ParsedData){
+      NewMarkers.push(L.marker([ParsedData.Lat, ParsedData.Lng]));
+    //  console.log(NewMarkers);
+    });
+    //return NewMarkers;
+  };
+  makeMarkers(filteredData);
 };
 
 /* =====================
@@ -37,18 +60,39 @@ var resetMap = function() {
   will be called as soon as the application starts. Be sure to parse your data once you've pulled
   it down!
 ===================== */
+
 var getAndParseData = function() {
   /* =====================
     Fill out this function definition
   ===================== */
+  $.ajax(downloadCrimeData).done(function(ajaxResponseValue) {
+    // a function that does some kind of transformation on the response
+    ParsedData = JSON.parse(ajaxResponseValue);
+    // Logging our computed result (within the body of the ajax function)
+    console.log(ParsedData);
+  //   var MappingData = function(Objects){
+  //     L.marker([Objects.Lat,Objects.Lng]).addTo(map);
+  //     count ++;
+  //   };
+  //   _.each(ParsedData,MappingData);
+  // ///What if I want to classify all the data by the crime category, but there are blanks between them.
+  //   Classification = _.groupBy(ParsedData, 'General Crime Category');
+  //   console.log(count);
+  //   console.log(Classification);
+  });
 };
 
 /* =====================
   Call our plotData function. It should plot all the markers that meet our criteria (whatever that
   criteria happens to be — that's entirely up to you)
 ===================== */
-var plotData = function() {
+var plotData = function(markers) {
   /* =====================
     Fill out this function definition
   ===================== */
+  //Get input data
+  console.log(markers);
+  _.each(markers,function(markers){
+    markers.addTo(map);
+  });
 };

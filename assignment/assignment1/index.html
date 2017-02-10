@@ -8,6 +8,7 @@
     Edit css/main.css
     ====================== -->
     <link rel="stylesheet" href="css/main.css" />
+    <script src="js/jquery-2.2.0.js"></script>
   </head>
   <body>
 
@@ -94,6 +95,20 @@
       	ext: 'png'
       }).addTo(map);
       console.log(schools);
+      var myIcon = L.icon({
+        iconUrl: 'js/images/marker-icon.png',
+        iconSize: [38, 95],
+        iconAnchor: [22, 94],
+        popupAnchor: [-3, -76],
+        // shadowUrl: 'js/images/marker-shadow.png',
+        // shadowSize: [68, 95],
+        // shadowAnchor: [22, 94]
+      });
+
+      var RedMarker = function(){
+
+      }
+      var markers = [];
       for (i = 0; i < schools.length; i++)
       {
       	var node = document.createElement("div");  // Create a <li> node
@@ -103,13 +118,30 @@
         var GrageLevel  = document.createTextNode(schools[i].GRADE_LEVEL); // Create a text node
         var Grade_Org = document.createTextNode(schools[i].GRADE_ORG); // Create a text node
         var Zip = document.createTextNode(schools[i].ZIPCODE); // Create a text node
+        var y = document.createTextNode(schools[i].Y);
+        var x = document.createTextNode(schools[i].X);
         node.appendChild(textnode);
         node.appendChild(address);
         node.appendChild(GrageLevel);
         node.appendChild(Grade_Org);
         node.appendChild(Zip);
+        node.appendChild(y);
+        node.appendChild(x);
       	document.getElementById("schools").appendChild(node); ///append Item
-        L.marker([schools[i].Y,schools[i].X]).addTo(map);
+        markers = L.circleMarker([schools[i].Y,schools[i].X]);
+        markers.addTo(map);
+        // -.each(markers,function(markers,schools,i){ markers = L.circleMarker([schools[i].Y,schools[i].X]);});
+        // console.log(markers);
+        // markers[i].addTo(map);
+        // node.onclick = function(){
+        //   markers[i].setRadius(100);
+        // }
+        // $(node).click(function() {
+        //   //alert( "Handler for .click() called." );
+        //   RedMarker (node);
+        //   console.log(node);
+        //   // L.marker([this[0].Y,this[0].X],{icon: myIcon}).addTo(map);
+        // });
       }
 
     </script>

@@ -38,9 +38,9 @@ var parseData = function(data) {
     var parsedInfo =  JSON.parse(data);
     return parsedInfo;
 };
-// downloadCrimeData.done(function(data){
-//    parseData(data);
-// });
+downloadCrimeData.done(function(data){
+   parseData(data);
+});
 
 var filterData = function(data){
   var filteredData = _.filter(data,function(data){
@@ -126,5 +126,5 @@ downloadCrimeData.done(function(data) {
 //  console.log("markers");
 //  console.log(markers);
   plotMarkers(markers);
-  removeMarkers(markers);
+// removeMarkers(markers);
 });

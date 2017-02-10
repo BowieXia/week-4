@@ -29,10 +29,10 @@ $('button#my-button').click(function(e) {
     Call our resetMap function to remove markers from the map and clear out the array of marker
     objects
   ===================== */
-  resetMap();
+  resetMap(ParsedData);
 
   /* =====================
     Call our plotData function. It should plot all the markers that meet our criteria
   ===================== */
-  plotData();
+  plotData(NewMarkers);
 });

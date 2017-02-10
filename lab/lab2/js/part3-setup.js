@@ -29,3 +29,4 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
   Add our dummy marker to the map
 ===================== */
 _.each(myMarkers, function(marker) { marker.addTo(map); });
+ //plotData();
